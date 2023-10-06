@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/rent
+    username: root
+    password: Mahashri@2022
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+#spring.jpa.hibernate.ddl-auto=update
+#spring.datasource.url=jdbc:mysql://${MYSQL_HOST:localhost}:3306/rentalride
+#spring.datasource.username=root
+#spring.datasource.password=Mahashri@2022
+#spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+##spring.jpa.show-sql: true
+
