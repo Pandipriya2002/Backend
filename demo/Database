@@ -1,0 +1,83 @@
+create database rent;
+use rent;
+-- 1,2,3
+create table rent.customer(
+customer_id int primary key auto_increment, 
+customer_name varchar(50),
+customer_mail varchar(50),
+customer_password varchar(50),
+customer_mobile bigint,
+customer_idproof varchar(200),
+customer_address varchar(250),
+reward_points int,
+admin_verified varchar(50)
+);
+
+-- 101,102,103
+create table rent.product(
+product_id	int primary key auto_increment,
+product_name	varchar(255),
+product_category	varchar(255),
+product_description	varchar(255),
+rent_amount	double,
+deposit_amount	double,
+product_image	blob,
+available_products varchar(50),
+customer_id	int ,
+foreign key(customer_id) references customer(customer_id)
+ );
+ 
+alter table rent.product
+add available_products varchar(50);
+drop table  rent.product;
+
+drop trigger productfororder_info;
+delimiter //
+CREATE TRIGGER productfororder_info 
+after update on order_info
+for each row   
+BEGIN  
+	update  product 
+    set available_products="Not Available"
+    where product_id = new.product_id;
+    
+END  ;//
+
+update order_info 
+set product_id=5
+where order_id=403;
+
+
+-- 201,202
+create table rent.admin(
+admin_id int primary key auto_increment,
+admin_name varchar(50),
+admin_mail varchar(50),
+admin_password varchar(50) 
+
+);
+-- 301,302
+create table rent.deliver(
+dm_id int primary key auto_increment,
+dm_name varchar(50),
+dm_mail varchar(50),
+dm_password varchar(50),
+dm_mobile bigint,
+dm_address varchar(250),
+dm_idproof varchar(50)
+);
+
+-- 401,402
+create table  rent.order_info(
+order_id int primary key AUTO_INCREMENT,
+order_date date ,
+order_status varchar(250),
+time_period int,
+total_amount decimal,
+product_id int,
+customer_id int,
+foreign key (customer_id) references rent.customer(customer_id),
+foreign key (product_id) references rent.product(product_id)
+);
+
+drop table rent.order_info
